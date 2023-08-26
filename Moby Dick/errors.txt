@@ -1,0 +1,11 @@
+﻿I'm sorry, but errors were detected in your script. Please correct the
+errors listed below, and try again.
+
+
+File "game/smallcaps.rpy", line 80: invalid syntax
+                                (renpy.TEXT_TEXT, use_smalls_hack? token : token.upper()),
+                                                                  ^
+    
+
+Ren'Py Version: Ren'Py 8.0.3.22090809
+Sun Oct 23 04:32:53 2022
