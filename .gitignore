@@ -1,3 +1,4 @@
+#This file is designed to exclude most things, but include eg intentional saves in case we need to keep them around for debugging, and also include various binary files we actually do want to keep around for convenient use. Maybe that's a good idea, maybe not, hey!
 tmp/default new project do not edit/
 traceback.txt
 tutorial/game/saves/
