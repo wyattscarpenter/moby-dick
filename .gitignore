@@ -1,0 +1,8 @@
+tmp/default new project do not edit/
+traceback.txt
+tutorial/game/saves/
+log.txt
+*.rpyb
+*.rpymc
+*.rpyc
+Moby-Dick/game/saves/auto*.save
