@@ -30,7 +30,7 @@ Art:
 Main characters (5 poses): could get away with maybe 3 of these tbh
 Side character (1 pose): there are like 30 of these tbh.
 Settings (backdrop): town (two towns), ship (two ships (The pequod is covered in whale ivory, so it looks different than every other ship, which look kinda the same)
-Cutaways: need at least one whale shot, although this could be simply the whale character art. And then you could have up to 100 cutaway images, depending on how cool you are.
+Cutaways: need at least one whale shot, although this could be simply the whale character art. And then you could have up to 200 cutaway images, depending on how cool you are.
 Time estimate: I don't know
 
 Marketing: I don't know.
@@ -57,3 +57,6 @@ visual novel toggle (just changes name on title and removes even the option to h
 
 anime mode is actually a scalar, and at the highest level, the buttons are also anime girls. all the dialogue also then becomes japanese, but also it's just English phonetically written in katakana.
 
+idle navigating a boat while the text goes by?
+
+zoom pan up to character reactions when something dramatic happens
