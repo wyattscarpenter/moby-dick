@@ -50,3 +50,10 @@ Public-domain illustration mode. normally it will just be original illustration 
 4. Full 3d animated cutscenes (do not actually do this)
 
 5. Have an entire audio book of M optionally play in the background
+
+## Dumb Ideas
+
+visual novel toggle (just changes name on title and removes even the option to have battles)
+
+anime mode is actually a scalar, and at the highest level, the buttons are also anime girls. all the dialogue also then becomes japanese, but also it's just English phonetically written in katakana.
+
