@@ -49,7 +49,7 @@ Public-domain illustration mode. normally it will just be original illustration 
 
 4. Full 3d animated cutscenes (do not actually do this)
 
-5. Have an entire audio book of M optionally play in the background
+5. Have an entire audio book of M optionally play in the background ( perhaps: https://librivox.org/moby-dick-by-herman-melville/ )
 
 ## Dumb Ideas
 
