@@ -51,6 +51,10 @@ Public-domain illustration mode. normally it will just be original illustration 
 
 5. Have an entire audio book of M optionally play in the background ( perhaps: https://librivox.org/moby-dick-by-herman-melville/ )
 
+## To-Dos
+
+1. Get main menu > VN > combat > VN > game complete flow working
+
 ## Dumb Ideas
 
 visual novel toggle (just changes name on title and removes even the option to have battles)
