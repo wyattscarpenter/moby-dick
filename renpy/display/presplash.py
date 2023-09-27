@@ -1,4 +1,4 @@
-# Copyright 2004-2022 Tom Rothamel <pytom@bishoujo.us>
+# Copyright 2004-2023 Tom Rothamel <pytom@bishoujo.us>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -34,6 +34,9 @@ import time
 import pygame_sdl2
 import renpy
 
+if renpy.emscripten:
+    import emscripten
+
 # The window.
 window = None
 
@@ -44,15 +47,13 @@ progress_bar = None
 start_time = time.time()
 
 
-class ProgressBar(pygame_sdl2.sprite.Sprite):
+class ProgressBar(object):
 
     def __init__(self, foreground, background):
         super(ProgressBar, self).__init__()
         self.foreground = pygame_sdl2.image.load(foreground)
         self.background = pygame_sdl2.image.load(background)
         self.width, self.height = self.background.get_size()
-        self.image = pygame_sdl2.Surface((self.width, self.height))
-        self.counter = 0.0
 
     def convert_alpha(self, surface=None):
         self.foreground = self.foreground.convert_alpha(surface)
@@ -61,12 +62,11 @@ class ProgressBar(pygame_sdl2.sprite.Sprite):
     def get_size(self):
         return (self.width, self.height)
 
-    def update(self, total):
-        self.counter += 1
-        width = self.width * min(self.counter / total, 1)
+    def draw(self, target, done):
+        width = self.width * min(done, 1)
         foreground = self.foreground.subsurface(0, 0, width, self.height)
-        self.image.blit(self.background, (0, 0))
-        self.image.blit(foreground, (0, 0))
+        target.blit(self.background, (0, 0))
+        target.blit(foreground, (0, 0))
 
 
 def find_file(base_name, root):
@@ -130,21 +130,37 @@ def start(basedir, gamedir):
         window.get_surface().blit(presplash, (0, 0))
     else:
         presplash.convert_alpha(window.get_surface())
-        window.get_surface().blit(presplash.background, (0, 0))
+        presplash.draw(window.get_surface(), 0)
 
     window.update()
 
-    global start_time
-    start_time = time.time()
 
+# The last time the progress bar was updated.
+last_pump_time = 0
+
+# The number of times the progress was pumped.
+pump_count = 0
 
 def pump_window():
+
+    global last_pump_time
+    global pump_count
+
+    pump_count += 1
+
+    if renpy.emscripten:
+        emscripten.sleep(0)
+
     if window is None:
         return
 
+    if last_pump_time + 1/24 > time.time():
+        return
+
+    last_pump_time = time.time()
+
     if progress_bar and renpy.game.script:
-        progress_bar.update(len(renpy.game.script.script_files) + 23)
-        window.get_surface().blit(progress_bar.image, (0, 0))
+        progress_bar.draw(window.get_surface(), pump_count / (len(renpy.game.script.script_files) + 23))
         window.update()
 
     for ev in pygame_sdl2.event.get():
@@ -160,10 +176,6 @@ def end():
     global window
 
     if renpy.emscripten:
-        # presplash handled on the JavaScript side, because emscripten
-        # currently does not support destroying/recreating GL contexts;
-        # in addition browsers support animated webp
-        import emscripten
         emscripten.run_script(r"""presplashEnd();""")
 
     if window is None:
@@ -189,3 +201,38 @@ def sleep():
 
     while end_time - time.time() > 0:
         pump_window()
+
+
+progress_kind = None
+
+def progress(kind, done, total):
+    """
+    Reports progress to emscripten.
+
+    `kind`
+        The kind of progress being reported. This is printed each time
+        it changes.
+
+    `done`
+        The number of units of progress that are complete.
+
+    `total`
+        The total number of units of progress.
+    """
+
+    global progress_kind
+
+    if not renpy.emscripten:
+        return
+
+    if not PY2:
+
+        if progress_kind != kind:
+            print()
+            print(kind)
+            progress_kind = kind
+            sys.stdout.flush()
+
+        emscripten.run_script(r"""progress(%d, %d);""" % (done, total))
+
+    emscripten.sleep(0)

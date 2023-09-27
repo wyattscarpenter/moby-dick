@@ -10,7 +10,7 @@
 
     # _developer/developer.rpym:45
     old "Reload Game (Shift+R)"
-    new "Reiniciar juego (Shift+R)"
+    new "Reiniciar juego (Mayús+R)"
 
     # _developer/developer.rpym:47
     old "Console (Shift+O)"
@@ -211,3 +211,20 @@
     # renpy/common/00console.rpy:784
     old "stack: print the return stack"
     new "stack: imprime la pila de retorno"
+
+    # renpy/common/00console.rpy:781
+    old "help: show this help\n help <expr>: show signature and documentation of <expr>"
+    new "help: muestra esta ayuda\n help <expr>: muestra la firma y la documentación de <expr>"
+
+    # renpy/common/00console.rpy:805
+    old "Help may display undocumented functions. Please check that the function or\nclass you want to use is documented.\n\n"
+    new "La ayuda puede mostrar funciones no documentadas. Por favor, compruebe que la función o\nclase que desea utilizar está documentada.\n\n"
+
+    # renpy/common/_developer/developer.rpym:51
+    old "Persistent Viewer"
+    new "Visor de datos persistentes"
+
+    # renpy/common/_developer/developer.rpym:70
+    old "Speech Bubble Editor (Shift+B)"
+    new "Editor de burbujas de diálogo (Mayús+B)"
+
