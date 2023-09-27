@@ -189,4 +189,4 @@ By reason of these things, then, the whaling voyage was welcome; the great flood
 label new_game_plus:
 
 # CONSUMED Usher... SUB-Librarian (not two subs)
-# Ahab: "Stand back, ishmael! I'm beginning to Mōb!"
+# Ahab: "Stand back, ishmael! I'm beginning to Mōb!!!"
