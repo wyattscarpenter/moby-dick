@@ -3,7 +3,15 @@ tmp/default new project do not edit/
 traceback.txt
 tutorial/game/saves/
 log.txt
+errors.txt
+
 *.rpyb
 *.rpymc
 *.rpyc
+*.pyc
+
 Moby-Dick/game/saves/auto*.save
+Moby-Dick/game/cache
+launcher/game/cache
+
+.vscode
