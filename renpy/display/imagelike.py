@@ -1,4 +1,4 @@
-# Copyright 2004-2022 Tom Rothamel <pytom@bishoujo.us>
+# Copyright 2004-2023 Tom Rothamel <pytom@bishoujo.us>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -75,6 +75,12 @@ class Solid(renpy.display.core.Displayable):
 
         rv = Render(width, height)
 
+        if width and height:
+            minw, minh = renpy.display.draw.draw_to_virt.transform(1, 1)
+
+            width = max(width, minw)
+            height = max(height, minh)
+
         if color is None or width <= 0 or height <= 0:
             return rv
 
@@ -142,7 +148,7 @@ class Borders(object):
 class Frame(renpy.display.core.Displayable):
     """
     :doc: disp_imagelike
-    :args: (image, left=0, top=0, right=None, bottom=None, tile=False, **properties)
+    :args: (image, left=0, top=0, right=None, bottom=None, *, tile=False, **properties)
     :name: Frame
 
     A displayable that resizes an image to fill the available area,
@@ -273,15 +279,29 @@ class Frame(renpy.display.core.Displayable):
         width = max(self.style.xminimum, width)
         height = max(self.style.yminimum, height)
 
+
+        # The size of the final displayable.
+        if self.tile:
+
+            dw = int(width)
+            dh = int(height)
+        else:
+            dw = width
+            dh = height
+
+
+        if width and height:
+            minw, minh = renpy.display.draw.draw_to_virt.transform(1, 1)
+
+            width = max(width, minw)
+            height = max(height, minh)
+
         image = self.style.child or self.image
         crend = render(image, width, height, st, at)
 
         sw, sh = crend.get_size()
         sw = int(sw)
         sh = int(sh)
-
-        dw = int(width)
-        dh = int(height)
 
         bw = self.left + self.right
         bh = self.top + self.bottom
@@ -580,8 +600,8 @@ class Frame(renpy.display.core.Displayable):
         return rv
 
     def visit(self):
-        rv = [ ]
-        self.style._visit_frame(rv)
+        rv = [ self.image ]
+        self.style._visit_frame(rv.append)
         return rv
 
 

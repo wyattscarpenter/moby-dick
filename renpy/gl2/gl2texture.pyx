@@ -1,6 +1,6 @@
 #@PydevCodeAnalysisIgnore
 #cython: profile=False
-# Copyright 2004-2022 Tom Rothamel <pytom@bishoujo.us>
+# Copyright 2004-2023 Tom Rothamel <pytom@bishoujo.us>
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -252,11 +252,12 @@ cdef class GLTexture(GL2Model):
     are no longer required.
     """
 
-    def __init__(GLTexture self, size, TextureLoader loader):
+    def __init__(GLTexture self, size, TextureLoader loader, generate=False):
 
         cdef unsigned char *pixels
         cdef unsigned char *data
         cdef unsigned char *p
+        cdef GLuint number
 
         width, height = size
 
@@ -274,8 +275,29 @@ cdef class GLTexture(GL2Model):
 
         # Update the loader.
         self.loader = loader
-        self.loader.total_texture_size += self.width * self.height * 4
 
+        if renpy.emscripten and generate:
+            # Generate a texture name to access video frames for web
+            glGenTextures(1, &number)
+            self.number = number
+            self.loaded = True
+            self.loader.allocated.add(self.number)
+            self.mesh = Mesh2.texture_rectangle(
+                0.0, 0.0, width, height,
+                0.0, 0.0, 1.0, 1.0,
+                )
+            self.properties = { }
+
+    def has_mipmaps(GLTexture self):
+        """
+        Returns true if this texture has mipmaps (or will have mipmaps
+        when it's loaded).
+        """
+
+        return self.properties.get("mipmap", True)
+
+    def get_number(GLTexture self):
+        return self.number if renpy.emscripten else None
 
     def from_surface(GLTexture self, surface, properties):
         """
@@ -296,6 +318,11 @@ cdef class GLTexture(GL2Model):
         """
         This renders `what` to this texture.
         """
+
+        self.properties = {
+            "mipmap" : properties.get("mipmap", True),
+            "pixel_perfect" : properties.get("pixel_perfect", False),
+            }
 
         cw, ch = size = what.get_size()
 
@@ -366,9 +393,6 @@ cdef class GLTexture(GL2Model):
 
         self.number = premultiplied
         self.loader.allocated.add(self.number)
-
-        if "pixel_perfect" in properties:
-            self.properties = { "pixel_perfect" : properties["pixel_perfect"] }
 
         self.loaded = True
 
@@ -480,8 +504,12 @@ cdef class GLTexture(GL2Model):
         # Going from a single to multiple mipmap levels takes ~9ms when loading
         # each mipmap, while allocating the space first reduces that to ~1ms.
 
-        glBindTexture(GL_TEXTURE_2D, tex)
+        if self.has_mipmaps():
+            self.loader.total_texture_size += int(self.width * self.height * 4 * 1.34)
+        else:
+            self.loader.total_texture_size += int(self.width * self.height * 4)
 
+        glBindTexture(GL_TEXTURE_2D, tex)
 
         max_level = renpy.config.max_mipmap_level
 
@@ -510,7 +538,6 @@ cdef class GLTexture(GL2Model):
         self.texture_height = th
 
         cdef GLuint level = 0
-
 
         while True:
 
@@ -553,7 +580,10 @@ cdef class GLTexture(GL2Model):
             if self.loaded:
                 self.loader.free_list.append(self.number)
 
-            self.loader.total_texture_size -= self.width * self.height * 4
+                if self.has_mipmaps():
+                    self.loader.total_texture_size -= int(self.width * self.height * 4 * 1.34)
+                else:
+                    self.loader.total_texture_size -= int(self.width * self.height * 4)
         except TypeError:
             pass # Let's not error on shutdown.
 

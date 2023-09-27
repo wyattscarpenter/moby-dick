@@ -94,7 +94,7 @@ class IOSVideoChannel(object):
             return
 
         filename = self.queue.pop(0)
-        with renpy.loader.load(filename) as f:
+        with renpy.loader.load(filename, directory="audio") as f:
             real_fn = f.name
 
         self.filename = filename
@@ -163,18 +163,16 @@ class IOSVideoChannel(object):
         self.stop()
         self.queue = [ ]
 
-    def enqueue(self, filenames, loop=True, synchro_start=False, fadein=0, tight=None, loop_only=False, relative_volume=1.0):
+    def enqueue(self, filenames, loop=True, synchro_start=False, fadein=0, tight=None, relative_volume=1.0):
         self.queue.extend(filenames)
 
     def pause(self):
         if self.player is not None:
             self.player.pause()
-        pass
 
     def unpause(self):
         if self.player is not None:
             self.player.unpause()
-        pass
 
     def set_volume(self, volume):
         pass
