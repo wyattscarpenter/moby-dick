@@ -8,7 +8,6 @@ errors.txt
 *.rpyb
 *.rpymc
 *.rpyc
-*.pyc
 
 Moby-Dick/game/saves/auto*.save
 Moby-Dick/game/cache
