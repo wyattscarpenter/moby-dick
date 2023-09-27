@@ -3,86 +3,105 @@
 # Declare characters used by this game. The color argument colorizes the
 # name of the character.
 
-define e = Character("Eileen")
+define i = Character("Ishmael", image="ishmael")
+define l = Character("Librarian", image="librarian")
 define chapter = Character("",what_text_align=0.5,what_xalign=0.5, what_yalign=0.5)
+
+transform midleft:
+    yalign 0.4
+    xoffset 10
+
+transform midright:
+    yalign 0.4
+    xoffset 3150
 
 #I've customized the main menu view to allow jumping to this screen, which seemed more elegant than implementing a new main menu screen for the toc.
 label toc: #note that this only works because I've put a bit of code into the default choice screen to make it scroll—otherwise the choices would just irrecoverably progress below the end of the screen! #todo: restyle choices screen to be less bad?
-  scene bg room #as good as any I guess, for now
-  menu:
-    #"CONTENTS." #if I want to actually display this well, I'll have to fiddle with the styling. But that's true of all the text I guess.
-#TODO: can I somehow get the —s to line up?
-    "Etymology":
-        jump etymology
-    "Extracts":
-        jump extracts
-    "Chapter I.—Loomings":
-        jump c1
-    "Chapter II.—The Carpet Bag":
-        jump c2
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
-    "cont?":
-        jump do_we_cont
+    scene bg room
+    menu:
+        #"CONTENTS." #if I want to actually display this well, I'll have to fiddle with the styling. But that's true of all the text I guess.
+        #TODO: can I somehow get the —s to line up?
+        "Etymology":
+            jump etymology
+        "Extracts":
+            jump extracts
+        "Chapter I.—Loomings":
+            jump c1
+        "Chapter II.—The Carpet Bag":
+            jump c2
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
+        "cont?":
+            jump do_we_cont
 
 # The game starts here. The label "start" is a preset, which we preserve for clarity. However, we don't do anything in there, and immediately pass through to the actual first section of the game instead.
 #TODO: Inscription page (to nathaniel hawthorne)
 label start:
+    scene bg room
 # typesetting is done with comparisons to the first american edition: https://archive.org/details/mobydickorwhale01melv/
 # there's a plain-text copy to work from... I think I may have been using https://www.gutenberg.org/files/2701/2701-h/2701-h.htm so far? Easier than going with, say, ocr. (note to self: should transform this from html to renpy later, possibly programmatically, to catch any italics.)
 init python:
-  renpy.config.rtl = False #rtl is purposefully off because it was easier to rearrange the two hebrew letters in the book than to mess up the spacing algorithm in that paragraph.
+    renpy.config.rtl = False #rtl is purposefully off because it was easier to rearrange the two hebrew letters in the book than to mess up the spacing algorithm in that paragraph.
 
 style right_align is text:
-  xalign 1.0
+    xalign 1.0
 
 label half_title: # "half-title" is the printing jargon for the internal title page. Because we are now into the book proper, we drop the "the RPG" from the name.
-  chapter "{size=+250}MOBY-DICK;\n\n{size=-250}OR{size=+250}\n\nTHE WHALE."
+    scene bg room
+    chapter "{size=+250}MOBY-DICK;\n\n{size=-250}OR{size=+250}\n\nTHE WHALE."
 
 label inscription:
-  #TODO: this isn't formatted in accordance with the book.
-  chapter "IN TOKEN\nOF MY ADMIRATION FOR HIS GENIUS \nTHIS BOOK IS INSCRIBED\nTO\nNATHANIEL HAWTHORNE."
+    scene bg room
+
+    #TODO: this isn't formatted in accordance with the book.
+    chapter "IN TOKEN\nOF MY ADMIRATION FOR HIS GENIUS \nTHIS BOOK IS INSCRIBED\nTO\nNATHANIEL HAWTHORNE."
 
 
 label etymology:
-  chapter "ETYMOLOGY.\n{sc}(supplied by a late consumptive usher to a grammar school.){/sc}"
-  "The pale Usher—threadbare in coat, heart, body, and brain; I see him now. He was ever dusting his old lexicons and grammars, with a queer handkerchief, mockingly embellished with all the gay flags of all the known nations of the world. He loved to dust his old grammars; it somehow mildly reminded him of his mortality."
-  #todo: rpg tutorial battle
+    scene bg room
 
-  #todo: you might notice I do some font shenanigans here, and the italic greek still isn't rendered quite right. I will try to hunt down a different century font, I think... #or, failing that, I should make some nice short custom font tags for these
-  #todo: actually format the etymologies as a table instead of the handspacing I currently use (and half-assed halfway through)?
-  #todo: this is poorly formatted: (missing italics, for example)
-  """ “While you take in hand to school others, and to teach them by what name a whale-fish is to be called in our tongue, leaving out, through ignorance, the letter H, which almost alone maketh up the signification of the word, you deliver that which is not true.” —Hackluyt.
+    chapter "ETYMOLOGY.\n{sc}(supplied by a late consumptive usher to a grammar school.){/sc}"
+
+    show librarian at midleft
+
+    "The pale Usher—threadbare in coat, heart, body, and brain; I see him now. He was ever dusting his old lexicons and grammars, with a queer handkerchief, mockingly embellished with all the gay flags of all the known nations of the world. He loved to dust his old grammars; it somehow mildly reminded him of his mortality."
+
+    #todo: rpg tutorial battle
+    #todo: you might notice I do some font shenanigans here, and the italic greek still isn't rendered quite right. I will try to hunt down a different century font, I think... #or, failing that, I should make some nice short custom font tags for these
+    #todo: actually format the etymologies as a table instead of the handspacing I currently use (and half-assed halfway through)?
+    #todo: this is poorly formatted: (missing italics, for example)
+
+    """ “While you take in hand to school others, and to teach them by what name a whale-fish is to be called in our tongue, leaving out, through ignorance, the letter H, which almost alone maketh up the signification of the word, you deliver that which is not true.” —Hackluyt.
 
 “WHALE. * * * Sw. and Dan. hval. This animal is named from roundness or rolling; for in Dan. hvalt is arched or vaulted.” —Webster’s Dictionary.
 
@@ -103,9 +122,11 @@ PEKEE-NUEE-NUEE,           {space=207} Fegee.\n
 PEHEE-NUEE-NUEE,           {space=207} Erromangoan."""
 
 label extracts:
-  # "({font=fonts/consola.ttf}𝔖𝔲𝔭𝔭𝔩𝔦𝔢𝔡 𝔟𝔶 𝔞 𝔖𝔲𝔟⹀𝔖𝔲𝔟⹀𝔏𝔦𝔟𝔯𝔞𝔯𝔦𝔞𝔫.{/font})" #my current font can't handle this unicode blackletter, so I'm going to have to use an actual blackletter font instead. Or just ignore this styling, the one instance of blackletter in the whole book lol #update: my personal copy of moby dick ignores the font styling. Also, I'm trying to use the font that displays these unicode characters as blackletter in notepad and it still doesn't work in renpy, so maybe it's a renpy problem...
-  #"{font=fonts/MonAmourFraktur-Broken.ttf}(Supplied by a Sub-Sub-Librarian){/font}" #if my blackletter font were perfect this would be fine
-  chapter "EXTRACTS.\n{font=fonts/MonAmourFraktur-Broken.ttf}({bs}s{/bs}upplied by a {bs}s{/bs}ub={bs}s{/bs}ub=Librarian.){/font}" #This displays properly! # The use of "big smalls" is to make fake capital letters by enlargening lower-case letters, because in this font the actual capitals look bad.
+    # "({font=fonts/consola.ttf}𝔖𝔲𝔭𝔭𝔩𝔦𝔢𝔡 𝔟𝔶 𝔞 𝔖𝔲𝔟⹀𝔖𝔲𝔟⹀𝔏𝔦𝔟𝔯𝔞𝔯𝔦𝔞𝔫.{/font})" #my current font can't handle this unicode blackletter, so I'm going to have to use an actual blackletter font instead. Or just ignore this styling, the one instance of blackletter in the whole book lol #update: my personal copy of moby dick ignores the font styling. Also, I'm trying to use the font that displays these unicode characters as blackletter in notepad and it still doesn't work in renpy, so maybe it's a renpy problem...
+    #"{font=fonts/MonAmourFraktur-Broken.ttf}(Supplied by a Sub-Sub-Librarian){/font}" #if my blackletter font were perfect this would be fine
+    chapter "EXTRACTS.\n{font=fonts/MonAmourFraktur-Broken.ttf}({bs}s{/bs}upplied by a {bs}s{/bs}ub={bs}s{/bs}ub=Librarian.){/font}" #This displays properly! # The use of "big smalls" is to make fake capital letters by enlargening lower-case letters, because in this font the actual capitals look bad.
+    hide librarian
+
 label c1:
 
     # Show a background. This uses a placeholder by default, but you can
@@ -118,13 +139,19 @@ label c1:
     # replace it by adding a file named "eileen happy.png" to the images
     # directory.
 
-    #show eileen happy
+    show ishmael at midleft
 
     # These display lines of dialogue.
 
-    e "You’ve {i}created{/i} a new Ren'Py game."
+    i "Hi it's me the {i}main character (I think? I haven't read Moby----Dick{/i}, before, {b}Ishmael.{/b}"
+
+    hide ishmael
+
     chapter "CHAPTER I.\n{sc}loomings.{/sc}"
-    """Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me.
+
+    show ishmael at midleft
+
+    i """Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world. It is a way I have of driving off the spleen and regulating the circulation. Whenever I find myself growing grim about the mouth; whenever it is a damp, drizzly November in my soul; whenever I find myself involuntarily pausing before coffin warehouses, and bringing up the rear of every funeral I meet; and especially whenever my hypos get such an upper hand of me, that it requires a strong moral principle to prevent me from deliberately stepping into the street, and methodically knocking people’s hats off—then, I account it high time to get to sea as soon as I can. This is my substitute for pistol and ball. With a philosophical flourish Cato throws himself upon his sword; I quietly take to the ship. There is nothing surprising in this. If they but knew it, almost all men in their degree, some time or other, cherish very nearly the same feelings towards the ocean with me.
 
 There now is your insular city of the Manhattoes, belted round by wharves as Indian isles by coral reefs—commerce surrounds it with her surf. Right and left, the streets take you waterward. Its extreme downtown is the battery, where that noble mole is washed by waves, and cooled by breezes, which a few hours previous were out of sight of land. Look at the crowds of water-gazers there.
 
@@ -148,7 +175,7 @@ Finally, I always go to sea as a sailor, because of the wholesome exercise and p
 
     centered  "“{i}Grand Contested Election for the Presidency of the United States.{/i}{p}\n\n“{sc}whaling voyage by one ishmael.{/sc}{p}\n\n“BLOODY BATTLE IN AFFGHANISTAN.”" #Note that this archaic spelling of Afghanistan is authentic to the original edition.
 
-    """Though I cannot tell why it was exactly that those stage managers, the Fates, put me down for this shabby part of a whaling voyage, when others were set down for magnificent parts in high tragedies, and short and easy parts in genteel comedies, and jolly parts in farces—though I cannot tell why this was exactly; yet, now that I recall all the circumstances, I think I can see a little into the springs and motives which being cunningly presented to me under various disguises, induced me to set about performing the part I did, besides cajoling me into the delusion that it was a choice resulting from my own unbiased freewill and discriminating judgment.
+    i """Though I cannot tell why it was exactly that those stage managers, the Fates, put me down for this shabby part of a whaling voyage, when others were set down for magnificent parts in high tragedies, and short and easy parts in genteel comedies, and jolly parts in farces—though I cannot tell why this was exactly; yet, now that I recall all the circumstances, I think I can see a little into the springs and motives which being cunningly presented to me under various disguises, induced me to set about performing the part I did, besides cajoling me into the delusion that it was a choice resulting from my own unbiased freewill and discriminating judgment.
 
 Chief among these motives was the overwhelming idea of the great whale himself. Such a portentous and mysterious monster roused all my curiosity. Then the wild and distant seas where he rolled his island bulk; the undeliverable, nameless perils of the whale; these, with all the attending marvels of a thousand Patagonian sights and sounds, helped to sway me to my wish. With other men, perhaps, such things would not have been inducements; but as for me, I am tormented with an everlasting itch for things remote. I love to sail forbidden seas, and land on barbarous coasts. Not ignoring what is good, I am quick to perceive a horror, and could still be social with it—would they let me—since it is but well to be on friendly terms with all the inmates of the place one lodges in.
 

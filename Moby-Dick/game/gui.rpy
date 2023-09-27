@@ -69,9 +69,9 @@ define gui.name_text_font = "fonts/century/Century Normal.ttf"
 ## The font used for out-of-game text.
 define gui.interface_text_font = "fonts/century/Century Normal.ttf"
 init python:
-  config.font_replacement_map["fonts/century/Century Normal.ttf", True, False] = ("fonts/century/Century Bold.ttf", False, False)
-  config.font_replacement_map["fonts/century/Century Normal.ttf", True, True] = ("fonts/century/Century Bold Italic.ttf", False, False)
-  config.font_replacement_map["fonts/century/Century Normal.ttf", False, True] = ("fonts/century/ceiswfte.ttf", False, False)
+    config.font_replacement_map["fonts/century/Century Normal.ttf", True, False] = ("fonts/century/Century Bold.ttf", False, False);
+    config.font_replacement_map["fonts/century/Century Normal.ttf", True, True] = ("fonts/century/Century Bold Italic.ttf", False, False);
+    config.font_replacement_map["fonts/century/Century Normal.ttf", False, True] = ("fonts/century/ceiswfte.ttf", False, False);
 
 ## The size of normal dialogue text.
 define gui.text_size = 66
