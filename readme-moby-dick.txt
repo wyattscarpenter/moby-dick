@@ -57,10 +57,13 @@ Public-domain illustration mode. normally it will just be original illustration 
 
 ## Dumb Ideas
 
-visual novel toggle (just changes name on title and removes even the option to have battles)
+visual novel toggle (just changes game name on title screen and removes even the option to have battles)
 
 anime mode is actually a scalar, and at the highest level, the buttons are also anime girls. all the dialogue also then becomes japanese, but also it's just English phonetically written in katakana.
 
 idle navigating a boat while the text goes by?
 
 zoom pan up to character reactions when something dramatic happens
+
+Harpoon bullet-hell sections
+
