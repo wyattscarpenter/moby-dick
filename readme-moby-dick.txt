@@ -53,7 +53,7 @@ Public-domain illustration mode. normally it will just be original illustration 
 
 ## To-Dos
 
-1. Get main menu > VN > combat > VN > game complete flow working
+1. Get main menu > VN > combat > VN > game complete flow working ✅ not committed: did an ill-fated Habitacle/battle-engine integration for this project, which was nevertheless instructive)
 
 ## Dumb Ideas
 
